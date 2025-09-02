@@ -1,0 +1,229 @@
+diff --git a/src/snow.php b/src/snow.php
+new file mode 100644
+index 0000000..1111111
+--- /dev/null
++++ b/src/snow.php
+@@
++<?php
++/*
++Plugin Name: Snow
++Description: Modular, extensible experimentation and analytics platform for WordPress.
++Version: 1.0.0
++Author: evangelistapjc
++
++This file serves as the entry point for the Snow plugin. It defines the plugin
++metadata used by WordPress and bootstraps the core functionality by loading
++the main plugin class. The plugin guards against direct access and hooks into
++the WordPress lifecycle via the `plugins_loaded` action.
++*/
++
++// Abort if this file is called directly outside of WordPress.
++if (!defined('ABSPATH')) {
++    exit;
++}
++
++// Include the core class responsible for initializing the plugin.
++require_once __DIR__ . '/includes/class-snow-core.php';
++
++// Kick off the plugin once all other plugins have loaded.
++add_action('plugins_loaded', ['Snow_Core', 'init']);
+
+diff --git a/src/includes/class-snow-core.php b/src/includes/class-snow-core.php
+new file mode 100644
+index 0000000..2222222
+--- /dev/null
++++ b/src/includes/class-snow-core.php
+@@
++<?php
++/**
++ * Main Snow plugin core class.
++ *
++ * This class encapsulates the core functionality of the Snow plugin. Its
++ * responsibilities include registering WordPress hooks, loading modular
++ * extensions and integrations, and orchestrating the plugin’s lifecycle.
++ * Additional functionality should be added through modular files in
++ * `src/includes` and hooked into WordPress using this class as a central
++ * coordinator.
++ */
++class Snow_Core {
++
++    /**
++     * Initialize the plugin.
++     *
++     * This method is hooked into the `plugins_loaded` action in
++     * `src/snow.php`. It should register any custom post types,
++     * enqueue scripts/styles, and set up integrations or hooks.
++     *
++     * @return void
++     */
++    public static function init() {
++        // Initialize core functionality here. For example:
++        // self::register_post_types();
++        // self::register_hooks();
++        // Additional modules can be loaded from the includes directory.
++    }
++
++    /**
++     * Example method for registering a custom post type.
++     *
++     * This method is provided as a placeholder for future expansion.
++     * Remove or replace it with real functionality as needed.
++     */
++    protected static function register_post_types() {
++        // Placeholder: register_post_type( 'snow_experiment', [ ... ] );
++    }
++
++    /**
++     * Example method for registering hooks.
++     *
++     * Use this method to hook plugin functionality into WordPress actions and
++     * filters. This keeps the init method clean and separates concerns.
++     */
++    protected static function register_hooks() {
++        // Placeholder: add_action( 'init', [ __CLASS__, 'do_something' ] );
++    }
++}
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..3333333
+--- /dev/null
++++ b/README.md
+@@
++# Snow
++
++Snow is a modular, extensible experimentation and analytics platform for
++WordPress. It provides a flexible foundation for running A/B tests,
++personalisation experiments, and capturing analytics events within your
++WordPress site. The project aims to be professional, open source and
++production‑ready from the outset, with a clean architecture and room to
++grow.
++
++## Features
++
++* **Modular architecture** – Core functionality is separated into
++  components under `src/includes` making it easy to extend.
++* **WordPress native** – Built using WordPress hooks and coding standards
++  so it feels familiar to WordPress developers.
++* **Extensible integrations** – Designed to integrate with third party
++  services such as marketing platforms, CRM tools and analytics APIs.
++* **Experimentation ready** – Provides a foundation for A/B testing and
++  personalisation experiments on WordPress pages and posts.
++
++## Getting Started
++
++1. Clone or download this repository into your WordPress installation’s
++   `wp-content/plugins` directory.
++2. Ensure the directory is named `snow` and contains the `src` folder
++   with `snow.php` at its root.
++3. Activate the plugin from the WordPress admin dashboard.
++
++Once activated, the plugin will boot its core class on the
++`plugins_loaded` hook. By default it does not register any custom
++functionality; developers can add modules inside `src/includes` and hook
++them into WordPress via the `Snow_Core` class.
++
++## Contributing
++
++Contributions are welcome! Please read the [contribution guide]
++(/CONTRIBUTING.md) for details on our code standards and the pull
++request process. If you encounter any bugs or have feature requests,
++please open an issue on GitHub.
++
++## License
++
++This project is licensed under the MIT License – see
++[LICENSE](/LICENSE) for details.
+
+diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
+new file mode 100644
+index 0000000..4444444
+--- /dev/null
++++ b/CONTRIBUTING.md
+@@
++# Contributing to Snow
++
++Thank you for your interest in contributing to **Snow**! This document
++outlines our guidelines for bug reports, feature requests and code
++contributions.
++
++## Code Standards
++
++We strive to follow the [WordPress Coding Standards](https://developer.wordpress.org/coding-standards/wordpress-coding-standards/) and
++PSR‑12 for PHP. Please ensure your code adheres to these standards.
++Wherever possible, document your classes and methods using PHPDoc
++comments. Keep functions small and focused; favour composition and
++modularity over monolithic classes.
++
++## How to Contribute
++
++1. **Fork the repository** and create a new branch for your feature or
++   bugfix.
++2. **Write tests**: if you’re adding new functionality or fixing a bug,
++   please include tests under the `/tests` directory. We plan to use
++   PHPUnit or the WordPress test suite.
++3. **Make your changes** following the code standards above.
++4. **Submit a pull request**: describe the problem and your solution in
++   detail. Reference any related issues.
++
++We encourage small, focused pull requests. If your change is large or
++introduces breaking changes, please open an issue first to discuss the
++implementation approach.
++
++## Bug Reports & Feature Requests
++
++To report a bug or request a feature, please open an issue in this
++repository. Provide as much detail as possible, including steps to
++reproduce the bug or a clear description of the desired functionality.
++
++## Contact
++
++For general questions or discussions, please use GitHub Discussions if
++enabled. Otherwise, open an issue and we will respond as soon as
++possible.
+
+diff --git a/LICENSE b/LICENSE
+new file mode 100644
+index 0000000..5555555
+--- /dev/null
++++ b/LICENSE
+@@
++MIT License
++
++Copyright (c) 2025 evangelistapjc
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+
+diff --git a/assets/.gitkeep b/assets/.gitkeep
+new file mode 100644
+index 0000000..6666666
+--- /dev/null
++++ b/assets/.gitkeep
+
+diff --git a/docs/.gitkeep b/docs/.gitkeep
+new file mode 100644
+index 0000000..6666667
+--- /dev/null
++++ b/docs/.gitkeep
+
+diff --git a/tests/.gitkeep b/tests/.gitkeep
+new file mode 100644
+index 0000000..6666668
+--- /dev/null
++++ b/tests/.gitkeep
